@@ -1,0 +1,19 @@
+<script type="text/javascript">
+
+var urls = new Array();
+urls[0] = "https://www.google.com/search?q=kde+m%C3%A1m+po%C4%8D%C3%ADta%C4%8D&rlz=1C1GCEU_csCZ970CZ970&sxsrf=ALiCzsZYC3F0MkGYncHVJog1AE73EhNozA%3A1654778900881&ei=FOyhYvuzNcH3kgW0qp6YDw&oq=kde+m%C3%A1m+po%C4%8Dt&gs_lcp=Cgdnd3Mtd2l6EAMYADIHCCEQChCgAToECCMQJzoGCCMQJxATOgsIABCABBCxAxCDAToICAAQgAQQsQM6BQgAEIAEOg4ILhCABBCxAxDHARCjAjoECAAQQzoLCC4QgAQQxwEQrwE6CggAELEDEIMBEEM6CAgAELEDEIMBOgsILhCABBCxAxDUAjoHCAAQgAQQCjoECAAQHjoGCAAQHhAKOggILhCABBDUAjoGCAAQHhAWOggIABAeEBYQCjoFCCEQoAFKBAhBGABKBAhGGABQAFj-EGDvF2gBcAF4AIABeogBmAiSAQM5LjSYAQCgAQHAAQE&sclient=gws-wiz";
+urls[1] = "https://www.google.com/search?q=jak+ukr%C3%A1st+popelnici&rlz=1C1GCEU_csCZ970CZ970&sxsrf=ALiCzsaWlWSBptZhAnfyh1w2dP2WxGxXfQ%3A1654778998570&ei=duyhYuy0IrOCi-gPzvq38AI&oq=jak+ukr%C3%A1st+popelnci&gs_lcp=Cgdnd3Mtd2l6EAMYADIHCCEQChCgATIHCCEQChCgATIHCCEQChCgATIHCCEQChCgAToECCMQJzoECAAQQzoICAAQgAQQsQM6BAgAEAM6CAgAELEDEIMBOgQILhAnOgsIABCABBCxAxCDAToFCAAQgAQ6CAguEIAEELEDOgUILhCABDoICC4QgAQQ1AI6BwgjEOoCECc6CwguELEDEIMBENQCOgsILhCABBCxAxCDAToICC4QsQMQgwE6BAguEEM6BggAEAoQQzoFCCEQoAFKBAhBGABKBAhGGABQAFirbmCTemgHcAF4AIABfYgB4w6SAQQyMy4zmAEAoAEBsAEKwAEB&sclient=gws-wiz";
+urls[2] = "http://learninginhand.com/contact";
+urls[4] = "http://learninginhand.com/services";
+urls[5] = "http://learninginhand.com/videos";
+urls[6] = "http://learninginhand.com/infographics";
+urls[7] = "http://learninginhand.com/resources";
+urls[8] = "http://learninginhand.com/stickaround";
+urls[9] = "http://learninginhand.com/posts";
+urls[10] = "http://learninginhand.com/pet";
+
+var random = Math.floor(Math.random()*urls.length);
+
+window.location = urls[random];
+
+</script>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapy Pro3B v. 2.8.5.1 - webová verze</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        body, html, #map {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        #controls {
+            position: static;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: rgb(255, 255, 255);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .saved-coordinate {
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        .route-controls {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div id="controls">
+    <h1>Mapy Pro3B (v. 2.8.5.1) - webová verze</h1>
+    <input type="text" id="location" placeholder="Zadejte místo">
+    <button onclick="geocodeAddress()">Vyhledat</button>
+    <button onclick="useMyLocation()">Aktuální poloha</button>
+    <button onclick="saveCurrentCoordinates()">Uložit souřadnice</button>
+    <button onclick="clearSavedCoordinates()">Smazat uložené souřadnice</button>
+    <button onclick="randomLocation()">Náhodné místo</button>
+    <button id="startRouteButton" onclick="startRoute()">Spustit trasování</button>
+    <div id="savedCoordinatesContainer">
+        <p id="savedCoordinates">Uložené souřadnice:</p>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://api.opencagedata.com/geocoding/v1/overview"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+<div id="map"></div>
+
+<script>
+    var map = L.map('map').setView([49.43, 13.89], 12);
+// vrstvy map - běžné - satelitní - terénní - tmavé
+    var streetsLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+
+
+    var terrainLayer = L.tileLayer('http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &amp; USGS'
+});
+
+    var darkLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    });
+
+    var baseLayers = {
+        "Běžné": streetsLayer,
+        "Satelitní": satelliteLayer,
+        "Terén": terrainLayer,
+        "Tmavé": darkLayer
+    };
+
+    L.control.layers(baseLayers).addTo(map);
+// 
+    var marker = L.marker([49.43, 13.89]).addTo(map);
+//vyhledávní pomocí OpenCage
+    function geocodeAddress() {
+        var locationInput = document.getElementById("location").value;
+        var apiKey = '1692c5acbdee4d1bb2833cd466266ef1';
+        var apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationInput)}&key=${apiKey}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results && data.results.length > 0) {
+                    var latitude = data.results[0].geometry.lat;
+                    var longitude = data.results[0].geometry.lng;
+
+                    map.setView([latitude, longitude], 12);
+                    marker.setLatLng([latitude, longitude]);
+
+                } else {
+                    alert("Tato adresa nemohla být nalezena.");
+                }
+            })
+            .catch(error => {
+                alert("Nepodařilo se získat data o adrese.");
+                console.error(error);
+            });
+    }
+// aktuální poloha
+    function useMyLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            map.setView([latitude, longitude], 12);
+            
+            // Move the marker to the current location
+            marker.setLatLng([latitude, longitude]);
+
+        }, function (error) {
+            alert("Nepodařlo se získat aktuální polohu: " + error.message);
+        });
+    } else {
+        alert("Ten tvůj krám nepodporuje geolokaci.");
+    }
+    }
+// funkce uložení souřadnic
+    function saveCurrentCoordinates() {
+        var currentCoordinates = marker.getLatLng();
+        var placeName = prompt("Pojmenujte si toto místo:");
+        var pElement = document.createElement("p");
+        var coordinatesText = `(${currentCoordinates.lat.toFixed(2)}, ${currentCoordinates.lng.toFixed(2)})`;
+        pElement.textContent = placeName ? `${coordinatesText} - ${placeName}` : coordinatesText;
+        pElement.className = "saved-coordinate";
+        pElement.addEventListener("click", function () {
+            var coordinatesOnly = coordinatesText.replace(/[\(\)]/g, ''); // Remove parentheses
+            document.getElementById("location").value = coordinatesOnly;
+        });
+        document.getElementById("savedCoordinatesContainer").appendChild(pElement);
+        alert("Bylo uloženo místo: " + pElement.textContent);
+    }
+// smazat souřadnice
+    function clearSavedCoordinates() {
+        var savedCoordinatesContainer = document.getElementById("savedCoordinatesContainer");
+        while (savedCoordinatesContainer.firstChild) {
+            savedCoordinatesContainer.removeChild(savedCoordinatesContainer.firstChild);
+        }
+        alert("Uložené souřadnice byly smazány.");
+    }
+// náhodné místo
+    function randomLocation() {
+        var randomLat = (Math.random() * (90 - (-90)) - 90).toFixed(2);
+        var randomLng = (Math.random() * (180 - (-180)) - 180).toFixed(2);
+        map.setView([randomLat, randomLng], 12);
+        marker.setLatLng([randomLat, randomLng]);
+    }
+// zapne trasovnání
+    function toggleRouteControls() {
+        var routeControls = document.getElementById("routeControls");
+        routeControls.style.display = routeControls.style.display === "none" ? "block" : "none";
+    }
+// vytvoří trasu
+function startRoute() {
+    // Create green icon for the starting point
+    var greenIcon = new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    // Create red icon for the ending point
+    var redIcon = new L.Icon({
+        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    var control = L.Routing.control({
+        waypoints: [
+            L.latLng(49.43, 13.89),
+            L.latLng(marker.getLatLng().lat, marker.getLatLng().lng)
+        ],
+        routeWhileDragging: true,
+        geocoder: L.Control.Geocoder.nominatim(),
+        createMarker: function (i, waypoint, n) {
+            var markerIcon = i === 0 ? greenIcon : redIcon; // Zelená je start, červená je konec trasy
+            var marker = L.marker(waypoint.latLng, {
+                draggable: true,
+                icon: markerIcon
+            });
+            return marker;
+        }
+    }).addTo(map);
+
+    map.on('click', function (e) {
+        control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+    });
+}
+
+
+    function initGeocoders() {
+        var startGeocoder = L.Control.geocoder().addTo(map);
+        var endGeocoder = L.Control.geocoder().addTo(map);
+
+        startGeocoder.on('markgeocode', function (event) {
+            control.spliceWaypoints(0, 1, event.geocode.center);
+        });
+
+        endGeocoder.on('markgeocode', function (event) {
+            control.spliceWaypoints(control.getWaypoints().length - 1, 1, event.geocode.center);
+        });
+
+        document.getElementById('startLocation').appendChild(startGeocoder.getContainer());
+        document.getElementById('endLocation').appendChild(endGeocoder.getContainer());
+    }
+</script>
+
+</body>
+</html>

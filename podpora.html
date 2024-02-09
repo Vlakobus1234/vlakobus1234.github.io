@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="cs" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Technická podpora lpvk.xf.cz</title>
+    <style>
+      .krouzek {
+        height: 10px;
+        width: 10px;
+        background-color: lawngreen;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+    <title>Technická podopra lpvk.xf.cz</title>
+    <script>
+      function addMessage() {
+        var userInput = document.getElementById("userInput");
+        var chatbox = document.getElementById("chatbox");
+        var response = document.createElement("p");
+        response.innerHTML = "<b>Uživatel:</b> " + userInput.value;
+        chatbox.appendChild(response);
+
+        var messages = [
+          "S čím můžu pomoci?",
+          "Ok.",
+          "Můžeš to trochu rozvést?",
+          "Nechápu.",
+          "No tak to jsi v prdeli.",
+          "No tak to nevím",
+          "Jasně.",
+          "Nevím jak na tohle odpovědět.",
+          "Čoveče tak to nevim",
+          "Jdi ven.",
+          "Tak to je dobrý no.",
+          "Ale no tak.",
+          "Ty jseš asi úplnej idiot.",
+          "Zkus ChatGPT nebo něco.",
+          "Zkus restartovat svoje zařízení.",
+          "Žeru špenát vole, syrovej.",
+          "Ty vole.",
+          "Zkus si to vybúglovat: http://lpvk.xf.cz/buggl.html",
+          "Čekejte.",
+          "Ty jseš cvok, viď?.",
+          "Ale prosim tě",
+          "Zajímavý.",
+          "Aha.",
+          "Bejt tebou tak bych začal něco dělat.",
+          "Cože?",
+          "No to je šílený.",
+          "Fakt jo?",
+          "Napiš mi později.",
+          "Řeknu ti to takhle, jseš divnej.",
+        ];
+        var randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        var botResponse = document.createElement("p");
+        botResponse.innerHTML = "<b>Standa:</b> " + randomMessage;
+        chatbox.appendChild(botResponse);
+
+        userInput.value = "";
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Technická podpora lpvk.xf.cz</h1>
+<p>Máte nějaké dotazy? Jste v zoufalé situaci? Ať už se děje cokoliv, zde se nás můžete zeptat na všechno a my vám ihned odpovíme!</p
+    <div>
+<img src="materialxd/zlodej.jpg" alt="standa" style="width:140px;height:140px;"><br>
+      <span class="krouzek"></span>
+      <span>Standa z technické podpory lpvk.xf.cz je online!</span><br>
+      <br><span>CHAT:</span>
+    </div><br>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Zadejte vaší zprávu">
+    <button onclick="addMessage()">Poslat zprávu</button>
+  </body>
+</html>
