@@ -40,11 +40,28 @@
         .route-controls {
             display: none;
         }
+#nahoru {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#nahoru:hover {
+  background-color: #555;
+}
     </style>
 </head>
 <body>
-
-
 
 <div id="controls">
     <h1>Mapy Pro3B (v. 2.8.5.1) - webová verze</h1>
@@ -238,6 +255,26 @@ function startRoute() {
         document.getElementById('startLocation').appendChild(startGeocoder.getContainer());
         document.getElementById('endLocation').appendChild(endGeocoder.getContainer());
     }
+
+	// Get the button
+let mybutton = document.getElementById("nahoru");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 1 || document.documentElement.scrollTop > 1) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
 </script>
 
 </body>
