@@ -67,7 +67,15 @@
 
 <div id="map"></div>
 
+<button onclick="scrollToTop()">Zpět nahoru</button>
 <script>
+
+    //zpět nahoru
+    function scrollToTop() {
+        document.body.scrollTop = 0; 
+        document.documentElement.scrollTop = 0; 
+    }
+
     var map = L.map('map').setView([49.43, 13.89], 12);
 // vrstvy map - běžné - satelitní - terénní - tmavé
     var streetsLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
