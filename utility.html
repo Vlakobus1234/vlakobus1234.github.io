@@ -40,6 +40,19 @@
         .button:disabled {
             background-color: #ccc;
         }
+        .utilities {
+            margin: 20px 0;
+        }
+        .utility-button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 14px;
+            color: white;
+            background-color: #28A745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -50,12 +63,22 @@
         <div class="info" id="ip">IP Address: Detecting...</div>
         <div class="info" id="language">Language: Detecting...</div>
         <div class="info" id="memory">Memory: Detecting...</div>
-        <button class="button" id="stopButton">Stop Corruption</button>
+        <div class="utilities">
+            <button class="utility-button" id="utility1">Check Internet Speed</button>
+            <button class="utility-button" id="utility2">Run Network Diagnostics</button>
+            <button class="utility-button" id="utility3">Clear Cache</button>
+            <button class="utility-button" id="utility4">Test Ping</button>
+            <button class="utility-button" id="utility5">Check Security</button>
+        </div>
+        <button class="button" id="startButton">Start Corruption</button>
+        <button class="button" id="stopButton" disabled>Stop Corruption</button>
     </div>
 
     <script>
         const stopButton = document.getElementById('stopButton');
-        let corruptionInterval = [];
+        const startButton = document.getElementById('startButton');
+        const utilityButtons = document.querySelectorAll('.utility-button');
+        let corruptionIntervals = [];
 
         function getBrowserInfo() {
             return navigator.userAgent;
@@ -63,7 +86,6 @@
 
         function getOSInfo() {
             const platform = navigator.platform;
-            const userAgent = navigator.userAgent;
 
             if (platform.startsWith('Win')) return 'Windows';
             if (platform.startsWith('Mac')) return 'MacOS';
@@ -96,38 +118,73 @@
             }
         }
 
-        function randomizeText(elementId, originalText) {
+        function randomizeText(elementId, values) {
             const element = document.getElementById(elementId);
-            let corrupting = true;
+            const originalText = element.textContent;
 
-            const interval = setInterval(() => {
-                if (corrupting) {
-                    element.textContent = elementId.replace('_', ' ') + ": " + Math.random().toString(36).substring(2, 15);
-                    element.classList.add('corrupt');
-                } else {
-                    element.textContent = originalText;
-                    element.classList.remove('corrupt');
-                }
-                corrupting = !corrupting;
+            let interval = setInterval(() => {
+                element.textContent = values[Math.floor(Math.random() * values.length)];
+                element.classList.add('corrupt');
             }, 500);
 
-            corruptionInterval.push(interval);
+            corruptionIntervals.push({ interval, element, originalText });
         }
 
         function startCorruption() {
-            randomizeText('os', document.getElementById('os').textContent);
-            randomizeText('browser', document.getElementById('browser').textContent);
-            randomizeText('ip', document.getElementById('ip').textContent);
-            randomizeText('language', document.getElementById('language').textContent);
-            randomizeText('memory', document.getElementById('memory').textContent);
+            randomizeText('os', ['Operating System: Windows', 'Operating System: MacOS', 'Operating System: Linux', 'Operating System: iOS', 'Operating System: Android', 'Operating System: Unknown']);
+            randomizeText('browser', ['Browser: Chrome', 'Browser: Firefox', 'Browser: Safari', 'Browser: Edge', 'Browser: Opera', 'Browser: Unknown']);
+            randomizeText('ip', ['IP Address: 192.168.0.1', 'IP Address: 10.0.0.1', 'IP Address: 172.16.0.1', 'IP Address: 127.0.0.1', 'IP Address: 255.255.255.255']);
+            randomizeText('language', ['Language: en-US', 'Language: fr-FR', 'Language: de-DE', 'Language: es-ES', 'Language: zh-CN', 'Language: Unknown']);
+            randomizeText('memory', ['Memory: 2 GB', 'Memory: 4 GB', 'Memory: 8 GB', 'Memory: 16 GB', 'Memory: 32 GB', 'Memory: Unavailable', 'Memory: 64GB', 'Memory: 128GB', 'Memory: 400GB']);
+            
+            startButton.disabled = true;
+            stopButton.disabled = false;
         }
 
         function stopCorruption() {
-            corruptionInterval.forEach(interval => clearInterval(interval));
+            corruptionIntervals.forEach(({ interval, element, originalText }) => {
+                clearInterval(interval);
+                element.textContent = originalText;
+                element.classList.remove('corrupt');
+            });
+            corruptionIntervals = [];
+            startButton.disabled = false;
             stopButton.disabled = true;
         }
 
+        function funnyEffects(effectId) {
+            switch (effectId) {
+                case 1:
+                    document.body.style.backgroundColor = 'pink';
+                    alert('Internet Speed Test Initiated... Just Kidding!');
+                    break;
+                case 2:
+                    document.body.style.transform = 'rotate(180deg)';
+                    alert('Running Network Diagnostics... Oops, flipped the page!');
+                    break;
+                case 3:
+                    document.body.style.fontFamily = 'Comic Sans MS';
+                    alert('Clearing Cache... Changed your font to Comic Sans!');
+                    break;
+                case 4:
+                    document.querySelectorAll('.info').forEach(el => el.style.color = 'blue');
+                    alert('Testing Ping... Turning text blue!');
+                    break;
+                case 5:
+                    document.body.style.fontSize = '2em';
+                    alert('Checking Security... Enlarged the text!');
+                    break;
+                default:
+                    alert('Unknown Utility!');
+            }
+        }
+
         stopButton.addEventListener('click', stopCorruption);
+        startButton.addEventListener('click', startCorruption);
+
+        utilityButtons.forEach((button, index) => {
+            button.addEventListener('click', () => funnyEffects(index + 1));
+        });
 
         document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('os').textContent = 'Operating System: ' + getOSInfo();
@@ -136,9 +193,6 @@
             document.getElementById('memory').textContent = 'Memory: ' + getMemory();
             document.getElementById('ip').textContent = 'IP Address: ' + await getIPAddress();
         });
-
-        // Start corruption after 5 seconds
-        setTimeout(startCorruption, 5000);
     </script>
 </body>
 </html>
