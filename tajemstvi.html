@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>tajna-stranka.garlic</title>
+    <script>
+      function checkPassword() {
+        var password = document.getElementById("password").value;
+        if (password === "dotaznik4") {
+          document.getElementById("passwordSection").style.display = "none";
+          document.getElementById("contentSection").style.display = "block";
+          setTimeout(function() {
+            window.close();
+          }, 10000);
+        } else {
+          alert("Špatný heslo");
+        }
+      }
+    </script>
+  </head>
+  <body>
+      <h1>tajna-stranka.garlic</h1>
+      <p>zadej heslo a získáš speciální informaci:</p>
+    <div id="passwordSection">
+      <input type="password" id="password">
+      <button onclick="checkPassword()">zadat</button>
+    </div>
+    <div id="contentSection" style="display: none;">
+      <p>správně! na tomhle místě nic není:</p>
+      <a href="lpvk.xf.cz ">místo</a>
+    </div>
+  </body>
+</html>
