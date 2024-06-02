@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utility Information Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .corrupt {
+            color: red;
+        }
+        .button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:disabled {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>System Information</h1>
+        <div class="info" id="os">Operating System: Detecting...</div>
+        <div class="info" id="browser">Browser: Detecting...</div>
+        <div class="info" id="ip">IP Address: Detecting...</div>
+        <div class="info" id="language">Language: Detecting...</div>
+        <div class="info" id="memory">Memory: Detecting...</div>
+        <button class="button" id="stopButton">Stop Corruption</button>
+    </div>
+
+    <script>
+        const stopButton = document.getElementById('stopButton');
+        let corruptionInterval = [];
+
+        function getBrowserInfo() {
+            return navigator.userAgent;
+        }
+
+        function getOSInfo() {
+            const platform = navigator.platform;
+            const userAgent = navigator.userAgent;
+
+            if (platform.startsWith('Win')) return 'Windows';
+            if (platform.startsWith('Mac')) return 'MacOS';
+            if (platform.startsWith('Linux')) return 'Linux';
+            if (platform.startsWith('iPhone') || platform.startsWith('iPad')) return 'iOS';
+            if (platform.startsWith('Android')) return 'Android';
+
+            return 'Unknown';
+        }
+
+        function getLanguage() {
+            return navigator.language || navigator.userLanguage;
+        }
+
+        function getMemory() {
+            if (navigator.deviceMemory) {
+                return navigator.deviceMemory + ' GB';
+            } else {
+                return 'Unavailable';
+            }
+        }
+
+        async function getIPAddress() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch {
+                return 'Unavailable';
+            }
+        }
+
+        function randomizeText(elementId, originalText) {
+            const element = document.getElementById(elementId);
+            let corrupting = true;
+
+            const interval = setInterval(() => {
+                if (corrupting) {
+                    element.textContent = elementId.replace('_', ' ') + ": " + Math.random().toString(36).substring(2, 15);
+                    element.classList.add('corrupt');
+                } else {
+                    element.textContent = originalText;
+                    element.classList.remove('corrupt');
+                }
+                corrupting = !corrupting;
+            }, 500);
+
+            corruptionInterval.push(interval);
+        }
+
+        function startCorruption() {
+            randomizeText('os', document.getElementById('os').textContent);
+            randomizeText('browser', document.getElementById('browser').textContent);
+            randomizeText('ip', document.getElementById('ip').textContent);
+            randomizeText('language', document.getElementById('language').textContent);
+            randomizeText('memory', document.getElementById('memory').textContent);
+        }
+
+        function stopCorruption() {
+            corruptionInterval.forEach(interval => clearInterval(interval));
+            stopButton.disabled = true;
+        }
+
+        stopButton.addEventListener('click', stopCorruption);
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            document.getElementById('os').textContent = 'Operating System: ' + getOSInfo();
+            document.getElementById('browser').textContent = 'Browser: ' + getBrowserInfo();
+            document.getElementById('language').textContent = 'Language: ' + getLanguage();
+            document.getElementById('memory').textContent = 'Memory: ' + getMemory();
+            document.getElementById('ip').textContent = 'IP Address: ' + await getIPAddress();
+        });
+
+        // Start corruption after 5 seconds
+        setTimeout(startCorruption, 5000);
+    </script>
+</body>
+</html>
