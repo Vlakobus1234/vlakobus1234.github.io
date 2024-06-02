@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utility Information Page</title>
+    <title>Open Interwebs Utility</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             color: #333;
             margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #007BFF;
+            color: white;
             padding: 20px;
+            text-align: center;
         }
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             background: white;
             padding: 20px;
             border-radius: 8px;
@@ -42,6 +48,7 @@
         }
         .utilities {
             margin: 20px 0;
+            text-align: center;
         }
         .utility-button {
             margin: 5px;
@@ -56,8 +63,11 @@
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Open Interwebs Utility</h1>
+    </div>
     <div class="container">
-        <h1>System Information</h1>
+        <h2>System Information</h2>
         <div class="info" id="os">Operating System: Detecting...</div>
         <div class="info" id="browser">Browser: Detecting...</div>
         <div class="info" id="ip">IP Address: Detecting...</div>
@@ -135,7 +145,7 @@
             randomizeText('browser', ['Browser: Chrome', 'Browser: Firefox', 'Browser: Safari', 'Browser: Edge', 'Browser: Opera', 'Browser: Unknown']);
             randomizeText('ip', ['IP Address: 192.168.0.1', 'IP Address: 10.0.0.1', 'IP Address: 172.16.0.1', 'IP Address: 127.0.0.1', 'IP Address: 255.255.255.255']);
             randomizeText('language', ['Language: en-US', 'Language: fr-FR', 'Language: de-DE', 'Language: es-ES', 'Language: zh-CN', 'Language: Unknown']);
-            randomizeText('memory', ['Memory: 2 GB', 'Memory: 4 GB', 'Memory: 8 GB', 'Memory: 16 GB', 'Memory: 32 GB', 'Memory: Unavailable', 'Memory: 64GB', 'Memory: 128GB', 'Memory: 400GB']);
+            randomizeText('memory', ['Memory: 2 GB', 'Memory: 4 GB', 'Memory: 8 GB', 'Memory: 16 GB', 'Memory: 32 GB', 'Memory: Unavailable']);
             
             startButton.disabled = true;
             stopButton.disabled = false;
