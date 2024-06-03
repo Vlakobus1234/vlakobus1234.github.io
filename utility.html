@@ -307,8 +307,6 @@
         function stopCorruption() {
             corruptionIntervals.forEach(({ interval, element, originalText }) => {
                 clearInterval(interval);
-                element.textContent = originalText;
-                element.classList.remove('corrupt');
             });
             corruptionIntervals = [];
             startButton.disabled = false;
