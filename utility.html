@@ -12,12 +12,14 @@
             margin: 0;
             padding: 0;
         }
+
         .header {
             background-color: #007BFF;
             color: white;
             padding: 20px;
             text-align: center;
         }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -26,12 +28,15 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .info {
             margin-bottom: 10px;
         }
+
         .corrupt {
             color: red;
         }
+
         .button {
             display: block;
             margin: 20px auto;
@@ -43,13 +48,16 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .button:disabled {
-            background-color: #ccc;
-        }
+
+            .button:disabled {
+                background-color: #ccc;
+            }
+
         .utilities {
             margin: 20px 0;
             text-align: center;
         }
+
         .utility-button {
             margin: 5px;
             padding: 10px 15px;
@@ -60,6 +68,104 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .loading-spinner {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .progress-bar-fill {
+            height: 20px;
+            width: 0;
+            background-color: #28a745;
+            animation: progress 5s linear infinite;
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0;
+            }
+
+            50% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0;
+            }
+        }
+
+        .intro-text {
+            margin-bottom: 20px;
+            font-style: italic;
+            text-align: justify;
+        }
+
+        .advertisement {
+            margin-top: 30px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+            .advertisement h3 {
+                margin-top: 0;
+            }
+
+            .advertisement img {
+                max-width: 100%;
+                border-radius: 5px;
+            }
+
+        .explosion-effect {
+            animation: explode 1s forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .form-container {
+            display: none;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -67,12 +173,16 @@
         <h1>Open Interwebs Utility</h1>
     </div>
     <div class="container">
+        <div class="intro-text">
+            <p>Welcome to Open Interwebs, your ultimate destination for internet utilities and fun! Whether you need to check your internet speed, run diagnostics, or clear your cache, we've got you covered. Explore the endless possibilities of the digital world with Open Interwebs Utility!</p>
+        </div>
         <h2>System Information</h2>
         <div class="info" id="os">Operating System: Detecting...</div>
         <div class="info" id="browser">Browser: Detecting...</div>
         <div class="info" id="ip">IP Address: Detecting...</div>
         <div class="info" id="language">Language: Detecting...</div>
         <div class="info" id="memory">Memory: Detecting...</div>
+        <div class="info" id="speed">Internet Speed: Detecting...</div>
         <div class="utilities">
             <button class="utility-button" id="utility1">Check Internet Speed</button>
             <button class="utility-button" id="utility2">Run Network Diagnostics</button>
@@ -80,14 +190,41 @@
             <button class="utility-button" id="utility4">Test Ping</button>
             <button class="utility-button" id="utility5">Check Security</button>
         </div>
+        <div class="loading-spinner" id="loadingSpinner"></div>
         <button class="button" id="startButton">Start Corruption</button>
         <button class="button" id="stopButton" disabled>Stop Corruption</button>
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        <div class="advertisement">
+            <h3>Exclusive Offer!</h3>
+            <p>Upgrade your internet experience with InterWeb Plus! Lightning-fast speeds, unlimited data, and premium customer support. Call now to get 50% off your first month!</p>
+            <img src="https://via.placeholder.com/300" alt="InterWeb Plus">
+            <button class="button" id="cheaperInternetButton">Cheaper Internet 24/7</button>
+            <div class="form-container" id="formContainer">
+                <h3>Sign Up for Cheaper Internet</h3>
+                <form id="cheaperInternetForm">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" required><br><br>
+                    <button type="submit" class="button">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script>
         const stopButton = document.getElementById('stopButton');
         const startButton = document.getElementById('startButton');
         const utilityButtons = document.querySelectorAll('.utility-button');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const cheaperInternetButton = document.getElementById('cheaperInternetButton');
+        const formContainer = document.getElementById('formContainer');
+        const cheaperInternetForm = document.getElementById('cheaperInternetForm');
+        const systemInfoContainer = document.querySelector('.container');
         let corruptionIntervals = [];
 
         function getBrowserInfo() {
@@ -128,6 +265,21 @@
             }
         }
 
+        async function getInternetSpeed() {
+            try {
+                const startTime = Date.now();
+                const response = await fetch('https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png');
+                const endTime = Date.now();
+                const duration = (endTime - startTime) / 1000;
+                const fileSize = response.headers.get('Content-Length') / (1024 * 1024); // in MB
+                const speed = (fileSize / duration).toFixed(2); // in Mbps
+                return speed +
+                    ' Mbps';
+            } catch {
+                return 'Unavailable';
+            }
+        }
+
         function randomizeText(elementId, values) {
             const element = document.getElementById(elementId);
             const originalText = element.textContent;
@@ -146,7 +298,8 @@
             randomizeText('ip', ['IP Address: 192.168.0.1', 'IP Address: 10.0.0.1', 'IP Address: 172.16.0.1', 'IP Address: 127.0.0.1', 'IP Address: 255.255.255.255']);
             randomizeText('language', ['Language: en-US', 'Language: fr-FR', 'Language: de-DE', 'Language: es-ES', 'Language: zh-CN', 'Language: Unknown']);
             randomizeText('memory', ['Memory: 2 GB', 'Memory: 4 GB', 'Memory: 8 GB', 'Memory: 16 GB', 'Memory: 32 GB', 'Memory: Unavailable']);
-            
+            randomizeText('speed', ['Internet Speed: 0.5 Mbps', 'Internet Speed: 1.2 Mbps', 'Internet Speed: 15.8 Mbps', 'Internet Speed: 100 Mbps', 'Internet Speed: 300 Mbps', 'Internet Speed: Unavailable']);
+
             startButton.disabled = true;
             stopButton.disabled = false;
         }
@@ -165,7 +318,7 @@
         function funnyEffects(effectId) {
             switch (effectId) {
                 case 1:
-                    document.body.style.backgroundColor = 'pink';
+                    loadingSpinner.style.display = 'block';
                     alert('Internet Speed Test Initiated... Just Kidding!');
                     break;
                 case 2:
@@ -189,6 +342,76 @@
             }
         }
 
+        function randomColorChange() {
+            setInterval(() => {
+                document.body.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            }, 12500);
+        }
+
+        function randomPopUp() {
+            setInterval(() => {
+                alert('Tip of the day: Turn off your computer to save energy!');
+            }, 40000);
+        }
+
+        function pageGlitch() {
+            const body = document.body;
+            setInterval(() => {
+                body.style.transform = 'skew(10deg, 10deg)';
+                setTimeout(() => body.style.transform = 'skew(0, 0)', 500);
+            }, 11000);
+        }
+
+        function morseCodeBeep() {
+            const audio = new Audio('https://upload.wikimedia.org/wikipedia/commons/4/47/Morse_code.ogg');
+            setInterval(() => {
+                audio.play();
+            }, 10000);
+        }
+
+        function easterEgg() {
+            document.body.addEventListener('click', (event) => {
+                if (event.target.tagName === 'BODY') {
+                    alert('ahoj jak se máš (:');
+                }
+            });
+        }
+
+        function upsideDownText() {
+            setInterval(() => {
+                document.querySelectorAll('.info').forEach(el => el.style.transform = 'rotate(180deg)');
+                setTimeout(() => {
+                    document.querySelectorAll('.info').forEach(el => el.style.transform = 'rotate(0)');
+                }, 1000);
+            }, 10000);
+        }
+
+        function showForm() {
+            formContainer.style.display = 'block';
+        }
+
+        cheaperInternetButton.addEventListener('click', showForm);
+
+        cheaperInternetForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            const infoText = `Name: ${name}, Email: ${email}, Phone: ${phone}`;
+            const newInfo = document.createElement('div');
+            newInfo.classList.add('info');
+            newInfo.textContent = infoText;
+            systemInfoContainer.appendChild(newInfo);
+
+            setTimeout(() => {
+                newInfo.classList.add('explosion-effect');
+                setTimeout(() => {
+                    newInfo.remove();
+                }, 5000);
+            }, 5000);
+        });
+
         stopButton.addEventListener('click', stopCorruption);
         startButton.addEventListener('click', startCorruption);
 
@@ -202,6 +425,14 @@
             document.getElementById('language').textContent = 'Language: ' + getLanguage();
             document.getElementById('memory').textContent = 'Memory: ' + getMemory();
             document.getElementById('ip').textContent = 'IP Address: ' + await getIPAddress();
+            document.getElementById('speed').textContent = 'Internet Speed: ' + await getInternetSpeed();
+
+            randomColorChange();
+            randomPopUp();
+            pageGlitch();
+            morseCodeBeep();
+            easterEgg();
+            upsideDownText();
         });
     </script>
 </body>
