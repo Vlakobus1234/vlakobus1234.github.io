@@ -159,8 +159,8 @@
         <div class="advertisement">
             <h3>Exkluzivní nabídka!</h3>
             <p>Upgradujte své internetové zkušenosti s InterWeb Plus! Bleskové rychlosti, neomezená data a prémiová zákaznická podpora. Zavolejte nyní a získejte 50% slevu na první měsíc!</p>
-            <img src="https://via.placeholder.com/300" alt="InterWeb Plus">
-            <button class="button" id="cheaperInternetButton">Cheaper Internet 24/7</button>
+            <img src="materialxd/reklama.png" alt="InterWeb Plus">
+            <button class="button" id="cheaperInternetButton">Chci levnější internet</button>
             <div class="form-container" id="formContainer">
                 <h3>Zařídíme vám lepší internet</h3>
                 <form id="cheaperInternetForm">
@@ -258,6 +258,12 @@
             randomizeText('language', ['Language: en-US', 'Language: fr-FR', 'Language: de-DE', 'Language: es-ES', 'Language: zh-CN', 'Language: Unknown']);
             randomizeText('memory', ['Memory: 2 GB', 'Memory: 256 GB', 'Memory: 8 GB', 'Memory: 16 GB', 'Memory: 32 GB', 'Memory: Unavailable', 'Memory: 64 GB', 'Memory: 128 GB']);
             randomizeText('speed', ['Internet Speed: 0.5 Mbps', 'Internet Speed: 1.2 Mbps', 'Internet Speed: 15.8 Mbps', 'Internet Speed: 100 Mbps', 'Internet Speed: 300 Mbps', 'Internet Speed: Unavailable']);
+            randomColorChange();
+            randomPopUp();
+            pageGlitch();
+            morseCodeBeep();
+            easterEgg();
+            upsideDownText();
             
             startButton.disabled = true;
             stopButton.disabled = false;
@@ -266,8 +272,6 @@
         function stopCorruption() {
             corruptionIntervals.forEach(({ interval, element, originalText }) => {
                 clearInterval(interval);
-                element.textContent = originalText;
-                element.classList.remove('corrupt');
             });
             corruptionIntervals = [];
             startButton.disabled = false;
@@ -379,13 +383,6 @@
             document.getElementById('memory').textContent = 'Memory: ' + getMemory();
             document.getElementById('ip').textContent = 'IP Address: ' + await getIPAddress();
             document.getElementById('speed').textContent = 'Internet Speed: ' + await getInternetSpeed();
-
-            randomColorChange();
-            randomPopUp();
-            pageGlitch();
-            morseCodeBeep();
-            easterEgg();
-            upsideDownText();
         });
     </script>
 </body>
