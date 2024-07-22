@@ -1,80 +1,148 @@
 <!DOCTYPE html>
-
 <html lang="cs" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Technická podpora vlakobus1234.github.io</title>
     <style>
-      .krouzek {
-        height: 10px;
-        width: 10px;
-        background-color: lawngreen;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 5px;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .krouzek {
+            height: 10px;
+            width: 10px;
+            background-color: lawngreen;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        #chatbox {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .chat-message {
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #d1e7dd;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #f8d7da;
+        }
+        input[type="text"] {
+            width: calc(100% - 110px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
-  </head>
-    <title>Technická podopra vlakobus1324.github.io</title>
     <script>
-      function addMessage() {
-        var userInput = document.getElementById("userInput");
-        var chatbox = document.getElementById("chatbox");
-        var response = document.createElement("p");
-        response.innerHTML = "<b>Uživatel:</b> " + userInput.value;
-        chatbox.appendChild(response);
+        function addMessage() {
+            var userInput = document.getElementById("userInput");
+            var chatbox = document.getElementById("chatbox");
+            
+            if (userInput.value.trim() !== "") {
+                var userMessage = document.createElement("p");
+                userMessage.classList.add("chat-message", "user-message");
+                userMessage.innerHTML = "<b>Uživatel:</b> " + userInput.value;
+                chatbox.appendChild(userMessage);
 
-        var messages = [
-          "S čím můžu pomoci?",
-          "Ok.",
-          "Můžeš to trochu rozvést?",
-          "Nechápu.",
-          "No tak to jsi v prdeli.",
-          "No tak to nevím",
-          "Jasně.",
-          "Nevím jak na tohle odpovědět.",
-          "Čoveče tak to nevim",
-          "Jdi ven.",
-          "Tak to je dobrý no.",
-          "Ale no tak.",
-          "Ty jseš asi úplnej idiot.",
-          "Zkus ChatGPT nebo něco.",
-          "Zkus restartovat svoje zařízení.",
-          "Žeru špenát vole, syrovej.",
-          "Ty vole.",
-          "Zkus si to vybúglovat: http://lpvk.xf.cz/buggl.html",
-          "Čekejte.",
-          "Ty jseš cvok, viď?.",
-          "Ale prosim tě",
-          "Zajímavý.",
-          "Aha.",
-          "Bejt tebou tak bych začal něco dělat.",
-          "Cože?",
-          "No to je šílený.",
-          "Fakt jo?",
-          "Napiš mi později.",
-          "Řeknu ti to takhle, jseš divnej.",
-        ];
-        var randomMessage = messages[Math.floor(Math.random() * messages.length)];
-        var botResponse = document.createElement("p");
-        botResponse.innerHTML = "<b>Standa:</b> " + randomMessage;
-        chatbox.appendChild(botResponse);
+                // Simulate typing delay
+                setTimeout(function() {
+                    var messages = [
+                        "S čím můžu pomoci?",
+                        "Ok.",
+                        "Můžeš to trochu rozvést?",
+                        "Nechápu.",
+                        "No tak to jsi v prdeli.",
+                        "No tak to nevím",
+                        "Jasně.",
+                        "Nevím jak na tohle odpovědět.",
+                        "Čoveče tak to nevim",
+                        "Jdi ven.",
+                        "Tak to je dobrý no.",
+                        "Ale no tak.",
+                        "Ty jseš asi úplnej idiot.",
+                        "Zkus ChatGPT nebo něco.",
+                        "Zkus restartovat svoje zařízení.",
+                        "Žeru špenát vole, syrovej.",
+                        "Ty vole.",
+                        "Zkus si to vybúglovat: http://vlakobus1234.github.io/Búggl.html",
+                        "Čekejte.",
+                        "Ty jseš cvok, viď?.",
+                        "Ale prosim tě",
+                        "Zajímavý.",
+                        "Aha.",
+                        "Bejt tebou tak bych začal něco dělat.",
+                        "Cože?",
+                        "No to je šílený.",
+                        "Fakt jo?",
+                        "Napiš mi později.",
+                        "Řeknu ti to takhle, jseš divnej.",
+                        "Polib mi pihel."
+                    ];
+                    var randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    var botResponse = document.createElement("p");
+                    botResponse.classList.add("chat-message", "bot-message");
+                    botResponse.innerHTML = "<b>Standa:</b> " + randomMessage;
+                    chatbox.appendChild(botResponse);
+                    chatbox.scrollTop = chatbox.scrollHeight;
+                }, 1000); // 1 second delay for response
+            }
 
-        userInput.value = "";
-      }
+            userInput.value = "";
+        }
     </script>
-  </head>
-  <body>
-    <h1>Technická podpora vlakobus1234.github.io</h1>
-<p>Máte nějaké dotazy? Jste v zoufalé situaci? Ať už se děje cokoliv, zde se nás můžete zeptat na všechno a my vám ihned odpovíme!</p
-    <div>
-<img src="materialxd/zlodej.jpg" alt="standa" style="width:140px;height:140px;"><br>
-      <span class="krouzek"></span>
-      <span>Standa z technické podpory vlakobus1234.github.io je online!</span><br>
-      <br><span>CHAT:</span>
-    </div><br>
-    <div id="chatbox"></div>
-    <input type="text" id="userInput" placeholder="Zadejte vaší zprávu">
-    <button onclick="addMessage()">Poslat zprávu</button>
-  </body>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Technická podpora</h1>
+        <p>Máte nějaké dotazy? Jste v zoufalé situaci? Ať už se děje cokoliv, zde se nás můžete zeptat na všechno a my vám ihned odpovíme!</p>
+        <div>
+            <img src="materialxd/zlodej.jpg" alt="standa" style="width:140px;height:140px;"><br>
+            <span class="krouzek"></span>
+            <span>Standa z technické podpory vlakobus1234.github.io je online!</span><br>
+            <br><span>CHAT:</span>
+        </div><br>
+        <div id="chatbox"></div>
+        <input type="text" id="userInput" placeholder="Zadejte vaší zprávu">
+        <button onclick="addMessage()">Poslat zprávu</button>
+    </div>
+</body>
 </html>
