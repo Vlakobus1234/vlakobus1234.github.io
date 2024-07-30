@@ -1,40 +1,120 @@
 <!doctype html>
 <html>
 <head>
-        <script>
-      function createPage() {
-        var text = document.getElementById("textInput").value;
-        var newPage = window.open();
-        newPage.document.write("<h1>" + text + "</h1>");
-        newPage.document.write("<p>pro zadaný výraz se nenašlo nic</p>");
-      }
+    <meta charset="utf-8">
+    <title>Búggl, s inteligentím vyhledávačem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header, nav, main, footer {
+            margin: 20px;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        h1 {
+            color: #0066cc;
+        }
+        .search-container {
+            margin: 20px;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+        .search-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        ol {
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        function createPage() {
+            var text = document.getElementById("textInput").value.trim();
+            if (text === "") {
+                alert("Prosím zadejte něco jestli chcete vyhledávat.");
+                return;
+            }
+            var newPage = window.open();
+            newPage.document.write(`
+                <!doctype html>
+                <html>
+                <head>
+                    <title>Vyhledali jste: "${text}"</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 20px;
+                        }
+                        h1 {
+                            color: #0066cc;
+                        }
+                        p, a {
+                            font-size: 18px;
+                        }
+                        a {
+                            text-decoration: none;
+                            color: #0066cc;
+                        }
+                        a:hover {
+                            text-decoration: underline;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Vyhledali jste: "${text}"</h1>
+                    <p>Pro zadaný výraz "${text}" se nenašlo nic protože neumim vytvářet vyhledávače</p>
+                    <a href="Búúgl.html">Zpět</a>
+                </body>
+                </html>
+            `);
+            newPage.document.close();
+        }
     </script>
-<meta charset="utf-8">
-<title>Búggl, s inteligentím vyhledávačem</title>
-<style type="text/css">
-</style>
 </head>
 <body>
-<p style="text-align: right">
-	<a href="Búggl.html">Búggl</a> | <a href="Info.html">Info</a> | <a href="Video.html">Video</a> | <a href="https://www.random.org/geographic-coordinates/">Odkaz</a></p>
-	<h1 style="text-align: center"><strong>Búggl</strong></h1>
-	<h4 style="text-align: center"><em><strong>pseudo-vyhledávač který nefunguje</strong>
-		</em></h4>
-		<div style="text-align:center">
-    <input type="text" id="textInput">
-    <button onclick="createPage()">Vyhledat</button>
-<form action="/materialxd/vyhledavani.html">
-    <input type="submit" value="Zkusím smůlu" />
-</form>
-    </div>
-
-<p>Proč používat Búggl?</p>
-<ol>
-  <li>Nesbírá vaše data, protože to html stránka neumí a ani já to neumím.</li>
-  <li>Funguje i offline, tak trochu.</li>
-  <li>Protože můžete.</li>
-  <li>Nevím.</li>
-  <li>Nepoužívejte ho.</li>
-</ol>
+    <header>
+        <nav>
+            <a href="vlakobus1234.github.io">Domovská stránka</a> |
+            <a href="mapy_projekt.html">Mapy</a> |
+            <a href="podpora.html">Podpora</a> |
+            <a href="https://www.random.org/geographic-coordinates/">Odkaz</a>
+        </nav>
+    </header>
+    <main>
+        <h1><strong>Búggl</strong></h1>
+        <h4><em><strong>Pseudo-vyhledávač který nefunguje</strong></em></h4>
+        <div class="search-container">
+            <input type="text" id="textInput" placeholder="Zadejte hledaný výraz...">
+            <button onclick="createPage()">Vyhledat</button>
+            <form action="/materialxd/vyhledavani.html" method="get">
+                <input type="submit" value="Zkusím smůlu">
+            </form>
+        </div>
+        <section>
+            <h2>Proč používat Búggl?</h2>
+            <ol>
+                <li>Nesbírá vaše data, protože to html stránka neumí a ani já to neumím</li>
+                <li>Funguje i offline, tak trochu.</li>
+                <li>Protože můžete.</li>
+                <li>Nevím.</li>
+                <li>Nepoužívejte ho.</li>
+            </ol>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Búggl. All rights reserved.</p>
+    </footer>
 </body>
 </html>
