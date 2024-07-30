@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <title>tajna-stranka.garlic</title>
     <script>
-      function checkPassword() {
-        var password = document.getElementById("password").value;
-          // co podvádíš ty zmetku
-        if (password === "dotaznik4") {
-          document.getElementById("passwordSection").style.display = "none";
+   // co sem čumíš ty zmetku
+      function checkelement() {
+        var element = document.getElementById("element").value;
+        if (element === "dotaznik4") {
+          document.getElementById("elementSection").style.display = "none";
           document.getElementById("contentSection").style.display = "block";
           setTimeout(function() {
             window.close();
@@ -22,9 +22,9 @@
   <body>
       <h1>tajna-stranka.garlic</h1>
       <p>zadej heslo a získáš speciální informaci:</p>
-    <div id="passwordSection">
-      <input type="password" id="password">
-      <button onclick="checkPassword()">zadat</button>
+    <div id="elementSection">
+      <input type="element" id="element">
+      <button onclick="checkelement()">zadat</button>
     </div>
     <div id="contentSection" style="display: none;">
       <p>správně! ale máš smůlu protože jsem tohle ještě nedodělal, je mi to líto:</p>
