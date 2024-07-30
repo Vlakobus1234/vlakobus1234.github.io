@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Matrixverse</title>
+    <style>
+        body 
+        {
+            background-color:black;
+            color:rgb(255, 255, 255);
+            padding:40px;
+            font-family:Tahoma;
+        }
+        a 
+        {
+            background-color:black;
+            border:1px solid rgb(255, 255, 255);
+            font-style:oblique;
+            margin-left:100px;
+            padding:2px;
+            animation-name:potvrzeni;
+            animation-duration:1s;
+            animation-iteration-count:infinite;
+            animation-play-state:paused;
+
+        }
+            a:link 
+            {
+                color:lawngreen;
+            }
+            a:visited 
+            {
+                color:rgb(255, 240, 30);
+            }
+            a:hover 
+            {
+                color:red;
+                font-size:larger;
+                border:5px solid red;
+            }
+        input 
+        {
+            margin:10px;
+        }
+        @keyframes potvrzeni {
+            from 
+            {
+            }
+
+            to 
+            {
+                border-color: red;
+                border-width:2px;
+            }
+        }
+    </style>
+</head>
+<body>
+ <div>
+    <center>
+    <h1>Vítejte</h1>
+    <label for="inputX">Souřadnice X: </label>
+    <input type="number" id="inputX" value="0" /><br />
+    <label for="inputY">Souřadnice Y: </label>
+    <input type="number" id="inputY" value="0" /><br />
+    <a id="entering" href="https://www.csfd.cz/film/9499-matrix/prehled/">GO</a>
+    <button onclick="nastavXY()">nastav souřadnice</button>
+    </center>
+</div>
+    
+    <script>
+
+        let actualX = 0;
+        let actualY = 0;
+        //moje dost hlavní funkce, která volá ostatní
+        function nastavXY()
+        {
+            nactiVstupy();
+            zmenOdkaz(actualX, actualY);
+            document.getElementById("entering").style.animationPlayState = "running";
+
+        }
+        function zmenOdkaz(x, y)
+        {
+            let odkaz = "error";
+            
+            if (x == 1 && y == 1)
+                odkaz = "rudyweb.html";
+                if (x == 1 && y == 2)
+                odkaz = "modryweb.html";
+                if (x == 4 && y == -4)
+                odkaz = "zelenyweb.html";
+                if (x == 1 && y == 4)
+                odkaz = "web.html";
+                if (x == 1 && y == 5)
+                odkaz = "web.html";
+                if (x == 7 && y == -4)
+                odkaz = "web.html";
+                if (x == -2 && y == -5)
+                odkaz = "web.html";
+                if (x == -1 && y == 5)
+                odkaz = "web.html";
+                if (x == 5 && y == 9)
+                odkaz = "web.html";
+                if (x == 1 && y == 10)
+                odkaz = "web.html";
+                if (x == 2 && y == 1)
+                odkaz = "rudyweb.html";
+                if (x == 4 && y == 2)
+                odkaz = "modryweb.html";
+                if (x == 7 && y == 3)
+                odkaz = "zelenyweb.html";
+                if (x == 9 && y == 4)
+                odkaz = "web.html";
+                if (x == 4 && y == 5)
+                odkaz = "web.html";
+                if (x == 7 && y == 1)
+                odkaz = "web.html";
+                if (x == 2 && y == 7)
+                odkaz = "web.html";
+                if (x == 3 && y == 8)
+                odkaz = "web.html";
+                if (x == 6 && y == 9)
+                odkaz = "web.html";
+                if (x == 9 && y == 10)
+                odkaz = "web.html";
+
+            document.getElementById("entering").href = odkaz;
+        }   
+        function nactiVstupy() {
+            actualX = document.getElementById("inputX").value;
+            actualY = document.getElementById("inputY").value;
+
+        }
+
+
+    </script>
+
+
+
+
+
+</body>
+</html>
