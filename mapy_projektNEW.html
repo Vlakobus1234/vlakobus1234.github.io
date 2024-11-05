@@ -178,7 +178,7 @@
     function randomLocation() {
         var randomLat = (Math.random() * (90 - (-90)) - 90).toFixed(2);
         var randomLng = (Math.random() * (180 - (-180)) - 180).toFixed(2);
-        map.setView([randomLat, randomLng], 5);
+        map.setView([randomLat, randomLng],);
         marker.setLatLng([randomLat, randomLng]);
     }
 // zapne trasovnání
