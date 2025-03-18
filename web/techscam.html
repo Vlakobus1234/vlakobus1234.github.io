@@ -3,60 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚠ URGENT: Virus Alert!</title>
+    <title>⚠ Upozornění! (2)</title>
     <style>
         body {
-            background-color: black;
-            color: red;
+            background-color: white;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
         }
-        .warning {
-            font-size: 24px;
-            font-weight: bold;
-            border: 3px solid red;
-            padding: 20px;
+        .warning-box {
+            background-color: white;
+            border: 5px solid red;
+            padding: 30px;
             display: inline-block;
-            background-color: yellow;
-            color: black;
-            animation: flash 0.5s infinite alternate;
+            text-align: left;
+            width: 60%;
+            box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.5);
         }
-        @keyframes flash {
-            0% { background-color: yellow; }
-            100% { background-color: red; }
+        .warning-title {
+            color: red;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
         }
         .details {
             font-size: 18px;
-            margin-top: 20px;
+            color: black;
+            margin-top: 15px;
         }
         .call-now {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             background-color: red;
             color: white;
             padding: 15px;
             border-radius: 5px;
-            display: inline-block;
-            margin-top: 30px;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            width: fit-content;
             cursor: pointer;
         }
     </style>
     <script>
         function showPopups() {
-            alert("WARNING! Your PC is infected! Call Microsoft Support Now!");
-            alert("Your system has been blocked due to suspicious activity.");
+            alert("⚠ VAROVÁNÍ! VÁŠ POČÍTAČ JE V OHORŽENÍ!");
+            alert("Suspicious activity detected. Your personal information is at risk.");
         }
         
         function preventClose(event) {
             event.preventDefault();
             event.returnValue = "Your computer is at risk! Are you sure you want to leave?";
-        }
-
-        function blockExit() {
-            setTimeout(function() {
-                window.open("fake_antivirus.html", "_blank");
-            }, 2000);
         }
 
         window.onload = function() {
@@ -67,9 +64,12 @@
     </script>
 </head>
 <body>
-    <h1 class="warning">⚠ WARNING: YOUR COMPUTER IS INFECTED! ⚠</h1>
-    <p class="details">Your Windows system is infected with (3) viruses! Your personal data, passwords, and banking information are at risk.</p>
-    <p class="details">Click below to speak to a Microsoft-certified technician immediately.</p>
-    <div class="call-now" onclick="alert('Calling... (Fake Example)')">📞 Call Now: +1 (800) 123-4567</div>
+    <div class="warning-box">
+        <h1 class="warning-title">⚠ UPOZORNĚNÍ! VÁŠ POČÍTAČ JE INFIKOVANÝ⚠</h1>
+        <p class="details">Microsoft Defender nalezl (3) viry na vašem zařízení</p>
+        <p class="details">Vaše osobní data, hesla a bankovní údaje jsou v ohrožení!.</p>
+        <p class="details">Zavolejte našim odborníkům a ochraňte svůj systém!.</p>
+        <div class="call-now" onclick="alert('přečtěte si číslo jako písmena')">730 513 878/div>
+    </div>
 </body>
 </html>
