@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Movie Online - Free Streaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .video-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .video-thumbnail {
+            width: 80%;
+            max-width: 800px;
+            border: 5px solid white;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 0, 0, 0.8);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+        .play-button:hover {
+            background-color: red;
+        }
+    </style>
+    <script>
+        function openPopup() {
+            window.open("fake_ad.html", "_blank", "width=600,height=400");
+        }
+    </script>
+</head>
+<body>
+    <h1> Sledujte "Niel Breen - Twisted Pair Online Zdarma! </h1>
+    <div class="video-container" onclick="openPopup()">
+        <img src="https://m.media-amazon.com/images/M/MV5BZDVlZDM2YjEtYzYxZS00Y2U0LWJkMTUtMGNlNDM2MmE3OGE5XkEyXkFqcGc@._V1_QL75_UX389_.jpg" 
+             alt="Fake Movie Thumbnail" class="video-thumbnail">
+        <button class="play-button">▶</button>
+    </div>
+</body>
+</html>
