@@ -48,12 +48,12 @@
     <script>
         function showPopups() {
             alert("⚠ VAROVÁNÍ! VÁŠ POČÍTAČ JE V OHORŽENÍ!");
-            alert("Suspicious activity detected. Your personal information is at risk.");
+            alert("Byla zjištěna podezřelá aktivita. Vaše osobní informace jsou v ohrožení)");
         }
         
         function preventClose(event) {
             event.preventDefault();
-            event.returnValue = "Your computer is at risk! Are you sure you want to leave?";
+            event.returnValue ="Opravdu chcete odejít? Váš systém je napaden!";
         }
 
         window.onload = function() {
