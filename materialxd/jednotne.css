@@ -8,7 +8,7 @@
 
    h1
     {
-      color: white;
+      color: rgb(251, 255, 142);
     }
 
    h3
@@ -19,6 +19,11 @@
     a
     {
       color:yellow
+    }
+
+    ol
+    {
+      color: white
     }
     .vrsek {
   overflow: hidden;
