@@ -1,6 +1,5 @@
     body {
         background-color: rgb(27, 27, 27);
-        
     }
    p
     {
@@ -15,7 +14,7 @@
   overflow: hidden;
  background-image: linear-gradient(to bottom, rgb(28, 28, 28), rgb(0, 62, 13));
     height: 200%;
-    padding-right: 200px;
+    padding-right: 50px;
 }
 
 .vrsek h1 {
