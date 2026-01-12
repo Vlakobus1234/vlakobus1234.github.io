@@ -1,0 +1,55 @@
+    body {
+        background-color: rgb(27, 27, 27);
+        
+    }
+   p
+    {
+      color: white;
+    }
+
+    a
+    {
+      color:yellow
+    }
+    .vrsek {
+  overflow: hidden;
+ background-image: linear-gradient(to bottom, rgb(28, 28, 28), rgb(0, 62, 13));
+    height: 200%;
+    padding-right: 40px;
+}
+
+.vrsek h1 {
+  color: white;
+}
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 20;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 85px;
+}
+
+.sidenav a {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
