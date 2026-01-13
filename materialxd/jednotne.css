@@ -60,6 +60,11 @@
   display: block;
 }
 
+.sidenav b 
+{
+  color: rgb(177, 177, 106);
+}
+
 .sidenav a:hover {
   color: #f1f1f1;
 }
