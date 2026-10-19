@@ -112,7 +112,7 @@
     function geocodeAddress() {
         var locationInput = document.getElementById("location").value;
         var apiKey = '1692c5acbdee4d1bb2833cd466266ef1';
-        var apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationInput)}&key=${apiKey}`;
+        var apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationInput)}&key=${b0bba32b22b6408c9a37ad4b193dcfa4}`;
 
         fetch(apiUrl)
             .then(response => response.json())
